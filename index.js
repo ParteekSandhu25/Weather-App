@@ -84,15 +84,12 @@ async function fetchUserWeatherInfo(coordinates) {
     const response = await fetch(
       `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
     );
-
     const data = await response.json();
     loadingScreen.classList.remove("active");
 
     // user info container ko visible karo
     userInfoContainer.classList.add("active");
-    console.log("before");
     renderWeatherInfo(data);
-    console.log("after");
   } catch (err) {
     loadingScreen.classList.remove("active");
     userInfoContainer.classList.remove("active");
@@ -157,14 +154,11 @@ function showError(error) {
 }
 
 function showPosition(position) {
-  console.log("in showPosition Function....");
   const userCoordinates = {
     lat: position.coords.latitude,
     lon: position.coords.longitude,
   };
-
   sessionStorage.setItem("user-coordinates", JSON.stringify(userCoordinates));
-  console.log("about to call fetchUserWeatherInfo function...");
   fetchUserWeatherInfo(userCoordinates);
 }
 
@@ -198,20 +192,13 @@ async function fetchSearchWeatherInfo(city) {
     const data = await response.json();
     loadingScreen.classList.remove("active");
     userInfoContainer.classList.add("active");
-    console.log("before2");
     renderWeatherInfo(data);
-    console.log("after3");
   } catch (err) {
-    console.log("IN ERROR BLOCK");
     // Home work
     loadingScreen.classList.remove("active");
     userInfoContainer.classList.remove("active");
     apiErrorContainer.classList.add("active");
-    apiErrorImg.style.display = "none";
-    apiErrorMessage.innerText = `Error: ${error?.message}`;
-    apiErrorBtn.addEventListener("click", fetchUserWeatherInfo);
-    // apiErrorWindow.classList.add("active");
-
-    console.log("ERROR in search tab : ", err);
+    apiErrorMessage.innerText = `${err?.message}`;
+    apiErrorBtn.style.display = "none";
   }
 }
