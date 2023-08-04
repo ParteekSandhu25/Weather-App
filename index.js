@@ -19,7 +19,8 @@ const apiErrorBtn = document.querySelector("[data-apiErrorBtn]");
 // variables needed ?
 
 let oldTab = userTab;
-const API_KEY = process.env.API_KEY;
+// const API_KEY = process.env.API_KEY;
+const API_KEY = "db4b4c90ff4aa110c6ec3bd784546bc3";
 
 oldTab.classList.add("current-tab");
 // ek kaam aur pending
