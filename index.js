@@ -20,6 +20,7 @@ const apiErrorBtn = document.querySelector("[data-apiErrorBtn]");
 
 let oldTab = userTab;
 const API_KEY = process.env.API_KEY;
+
 oldTab.classList.add("current-tab");
 // ek kaam aur pending
 getFromSessionStorage();
@@ -189,6 +190,9 @@ async function fetchSearchWeatherInfo(city) {
     const response = await fetch(
       `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`
     );
+    if (!response.ok) {
+      throw new Error("City Unavailable");
+    }
     const data = await response.json();
     loadingScreen.classList.remove("active");
     userInfoContainer.classList.add("active");
